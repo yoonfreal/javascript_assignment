@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript_assignment_3</title>
+</head>
+<body>
+    <script>
+        const people = [ 
+        "Alice Anderson", 
+        "Aaron Adams", 
+        "Bella Brown", 
+        "Brian Black", 
+        "Cathy Carter", 
+        "Charles Cooper", 
+        "Diana Davis", 
+        "Daniel Drake", 
+        "Ella Evans", 
+        "Ethan Edwards", 
+        "Fiona Fisher", 
+        "Frank Foster", 
+        "Grace Green", 
+        "Gavin Gray", 
+        "Hannah Harris", 
+        "Henry Hill", 
+        "Isabella Ingram", 
+        "Ian Irving", 
+        "Jack Johnson", 
+        "Julia James" 
+        ]; 
+        const firstletter = 'B';
+        const newArray = people.filter((element) => { 
+            return element.charAt(0) == firstletter; 
+        });
+
+        console.log(newArray);
+    </script>
+</body>
+</html>
