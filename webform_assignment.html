@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Item</title>
+</head>
+
+<body>
+    <form action="https://athiphat-mybackend-01.southeastasia.cloudapp.azure.com/api/product" method="post" enctype="multipart/form-data">
+
+        <fieldset>
+            <legend>General Info</legend>
+            <p>
+                <label for="itemName">Item Name</label>
+                <input type="text" id="itemName" name="f" size="50" maxlength="500" />
+                <br><br>
+                <label for="itemDescription">Description</label>
+                <input type="text" id="itemDescription" name="itemDescription" size="50" maxlength="500" />
+                <br><br>
+                <label for="CoverImage">Cover Image</label>
+                <input type="file" id="CoverImage" name="CoverImage" />
+                <br><br>
+                <label for="Category">Category</label>
+                <Select id="Category">
+                    <option value="notSpecified">notSpecified</option>
+                    <option value="consumption">consumption</option>
+                    <option value="household">household</option>
+                    <option value="electronic">electronic</option>
+                    <option value="gadget">gadget</option>
+                </Select>
+            </p>
+        </fieldset>
+        <fieldset>
+            <legend>Misc.</legend>
+            <p>
+                <label for="Amount">Inventory Amount</label>
+                <input type="number" id="Amount" name="Amount"  />
+                <br><br>
+                <label for="ListPrice">List Price</label>
+                <input type="number" id="ListPrice" name="ListPrice"  />
+                <br><br>
+                <label for="availableStore[]"><b>AvailableStore</b></label>
+                <br>
+                <input type="checkbox">Bangkok
+                <input type="checkbox">Pattaya
+                <input type="checkbox">Phukhet
+                <br><br>
+                <label for="status"><b>Active Status</b></label>
+                <br>
+                <input type="radio">Active
+                <input type="radio">Inactive
+
+            </p>
+        </fieldset>
+
+        <fieldset>
+             <legend>Staff</legend>
+            <p>
+                <label for="staffEmail">Staff Email</label>
+                <input type="email">
+            </p>
+        </fieldset>
+        <button type="submit">Submit Form</button>
+    </form>
+</body>
+
+</html>
