@@ -102,7 +102,6 @@
     </div>
 
     <script>
-        // Monster list as array of JSON objects
         const monsters = [
             { "id": 1,  "name": "Fire Dragon",      "hp": 150, "exp": 85  },
             { "id": 2,  "name": "Ice Wolf",         "hp": 75,  "exp": 45  },
@@ -116,22 +115,18 @@
             { "id": 10, "name": "Lava Titan",       "hp": 250, "exp": 150 }
         ];
 
-        // DOM references
         const selectEl = document.getElementById('monster-list');
         const tdId = document.getElementById('td-monster-id');
         const tdName = document.getElementById('td-monster-name');
         const tdHp = document.getElementById('td-monster-hp');
         const tdExp = document.getElementById('td-monster-exp');
 
-        // Populate dropdown: first option is default '-'
         function populateDropdown() {
-            // default option
             const defaultOption = document.createElement('option');
-            defaultOption.value = '';         // empty value signifies default
-            defaultOption.textContent = '-';  // use textContent (safe) not innerHTML
+            defaultOption.value = '';         
+            defaultOption.textContent = '-';  
             selectEl.appendChild(defaultOption);
 
-            // create option for each monster (use id as value so lookup is easy)
             monsters.forEach(mon => {
                 const opt = document.createElement('option');
                 opt.value = String(mon.id);
@@ -140,7 +135,6 @@
             });
         }
 
-        // Clear table cells
         function clearDetails() {
             tdId.textContent = '';
             tdName.textContent = '';
@@ -148,12 +142,9 @@
             tdExp.textContent = '';
         }
 
-        // Show details for a given monster id (number or string)
         function showDetailsById(id) {
-            // If id is empty or not found, clear and return
             if (!id) { clearDetails(); return; }
 
-            // find monster (simple for-of search)
             const mid = Number(id);
             for (const m of monsters) {
                 if (m.id === mid) {
@@ -164,19 +155,15 @@
                     return;
                 }
             }
-            // not found => clear
             clearDetails();
         }
 
-        // Event: onchange on the select
         selectEl.addEventListener('change', (e) => {
             showDetailsById(e.target.value);
         });
 
-        // init
         document.addEventListener('DOMContentLoaded', () => {
             populateDropdown();
-            // ensure default is selected (clear fields)
             selectEl.value = '';
             clearDetails();
         });
