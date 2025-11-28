@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Monster Detail</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            margin: 24px;
+            background: linear-gradient(180deg,#f7fbff,#ffffff);
+            color: #111827;
+        }
+        h3 {
+            margin-bottom: 8px;
+        }
+
+        .card {
+            max-width: 680px;
+            background: #ffffff;
+            border: 1px solid #e6eef6;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 6px 16px rgba(9,30,66,0.04);
+        }
+
+        .controls {
+            margin: 12px 0 18px 0;
+        }
+
+        select {
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            background: #fff;
+            font-size: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+        }
+
+        th {
+            text-align: left;
+            width: 80px;
+            font-weight: 600;
+            padding: 8px 6px;
+            color: #0f172a;
+        }
+
+        td {
+            padding: 8px 6px;
+            color: #0b1220;
+            background: #fbfdff;
+            border-left: 1px solid #eef6ff;
+        }
+
+        .muted {
+            color: #6b7280;
+            font-size: 14px;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card" role="main">
+        <h3>Monster Detail</h3>
+
+        <div class="controls">
+            <div>Select Monster:</div>
+            <div>
+                <select id="monster-list" aria-label="Select monster"></select>
+            </div>
+        </div>
+
+        <hr/>
+
+        <div>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <td id="td-monster-id"></td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td id="td-monster-name"></td>
+                </tr>
+                <tr>
+                    <th>HP</th>
+                    <td id="td-monster-hp"></td>
+                </tr>
+                <tr>
+                    <th>EXP</th>
+                    <td id="td-monster-exp"></td>
+                </tr>
+            </table>
+
+            <div class="muted">Choose a monster from the dropdown to see details. Choose '-' to clear.</div>
+        </div>
+    </div>
+
+    <script>
+        // Monster list as array of JSON objects
+        const monsters = [
+            { "id": 1,  "name": "Fire Dragon",      "hp": 150, "exp": 85  },
+            { "id": 2,  "name": "Ice Wolf",         "hp": 75,  "exp": 45  },
+            { "id": 3,  "name": "Shadow Goblin",    "hp": 40,  "exp": 25  },
+            { "id": 4,  "name": "Lightning Phoenix","hp": 200, "exp": 120 },
+            { "id": 5,  "name": "Earth Golem",      "hp": 180, "exp": 95  },
+            { "id": 6,  "name": "Poison Spider",    "hp": 60,  "exp": 35  },
+            { "id": 7,  "name": "Wind Eagle",       "hp": 90,  "exp": 55  },
+            { "id": 8,  "name": "Dark Skeleton",    "hp": 65,  "exp": 40  },
+            { "id": 9,  "name": "Crystal Unicorn",  "hp": 120, "exp": 75  },
+            { "id": 10, "name": "Lava Titan",       "hp": 250, "exp": 150 }
+        ];
+
+        // DOM references
+        const selectEl = document.getElementById('monster-list');
+        const tdId = document.getElementById('td-monster-id');
+        const tdName = document.getElementById('td-monster-name');
+        const tdHp = document.getElementById('td-monster-hp');
+        const tdExp = document.getElementById('td-monster-exp');
+
+        // Populate dropdown: first option is default '-'
+        function populateDropdown() {
+            // default option
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';         // empty value signifies default
+            defaultOption.textContent = '-';  // use textContent (safe) not innerHTML
+            selectEl.appendChild(defaultOption);
+
+            // create option for each monster (use id as value so lookup is easy)
+            monsters.forEach(mon => {
+                const opt = document.createElement('option');
+                opt.value = String(mon.id);
+                opt.textContent = mon.name;
+                selectEl.appendChild(opt);
+            });
+        }
+
+        // Clear table cells
+        function clearDetails() {
+            tdId.textContent = '';
+            tdName.textContent = '';
+            tdHp.textContent = '';
+            tdExp.textContent = '';
+        }
+
+        // Show details for a given monster id (number or string)
+        function showDetailsById(id) {
+            // If id is empty or not found, clear and return
+            if (!id) { clearDetails(); return; }
+
+            // find monster (simple for-of search)
+            const mid = Number(id);
+            for (const m of monsters) {
+                if (m.id === mid) {
+                    tdId.textContent = m.id;
+                    tdName.textContent = m.name;
+                    tdHp.textContent = m.hp;
+                    tdExp.textContent = m.exp;
+                    return;
+                }
+            }
+            // not found => clear
+            clearDetails();
+        }
+
+        // Event: onchange on the select
+        selectEl.addEventListener('change', (e) => {
+            showDetailsById(e.target.value);
+        });
+
+        // init
+        document.addEventListener('DOMContentLoaded', () => {
+            populateDropdown();
+            // ensure default is selected (clear fields)
+            selectEl.value = '';
+            clearDetails();
+        });
+    </script>
+</body>
+</html>
